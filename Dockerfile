@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:1.0.0-rc2-core
+FROM microsoft/dotnet:latest
 
 COPY . /webapp
 WORKDIR /webapp
@@ -6,4 +6,4 @@ WORKDIR /webapp
 CMD dotnet restore
 
 EXPOSE 5000/tcp
-ENTRYPOINT bash
+ENTRYPOINT dotnet run
