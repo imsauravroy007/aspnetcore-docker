@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:1.0.0-rc2-core-deps
+FROM microsoft/dotnet:1.0.0-rc2-core
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -7,15 +7,14 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Install .NET Core
-ENV DOTNET_CORE_VERSION 1.0.0-rc2-3002702
-RUN curl -SL https://dotnetcli.blob.core.windows.net/dotnet/beta/Binaries/$DOTNET_CORE_VERSION/dotnet-debian-x64.$DOTNET_CORE_VERSION.tar.gz --output dotnet.tar.gz \
-    && mkdir -p /usr/share/dotnet \
-    && tar -zxf dotnet.tar.gz -C /usr/share/dotnet \
-    && rm dotnet.tar.gz \
-    && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
+RUN sudo sh -c 'echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet/ trusty main" > /etc/apt/sources.list.d/dotnetdev.list' 
+    && sudo apt-key adv --keyserver apt-mo.trafficmanager.net --recv-keys 417A0893
+    && sudo apt-get update
+    && sudo apt-get install dotnet-dev-1.0.0-preview1-002702
 
-COPY . /app
-WORKDIR /app
+#copy web-app to container    
+COPY . /webapp
+WORKDIR /webapp
 RUN ["dotnet", "restore"]
 
 EXPOSE 5000/tcp
