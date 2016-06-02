@@ -5,5 +5,7 @@ WORKDIR /webapp
 
 RUN ["dotnet", "restore"]
 
+RUN ["echo", "Restore is done!"]
+
 EXPOSE 5000/tcp
-CMD ["dotnet", "run"]
+ENTRYPOINT ["dotnet", "run"]
