@@ -12,7 +12,7 @@ RUN curl -SL https://dotnetcli.blob.core.windows.net/dotnet/beta/Binaries/$DOTNE
     && mkdir -p /usr/share/dotnet \
     && tar -zxf dotnet.tar.gz -C /usr/share/dotnet \
     && rm dotnet.tar.gz \
-    && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
+   #&& ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
 
 COPY . /webapp
 WORKDIR /webapp
